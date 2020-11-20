@@ -1,24 +1,63 @@
-# README
+## usersテーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Column  |Type  | Options                 |
+|---------|------|-------------------------|
+|nickname |string|null: false              |
+|email    |string|null: false, unique: true|
+|password |string|null: false              |
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+### Association
+has_many :products
+has_many :purchases
 
-* Configuration
 
-* Database creation
+## productsテーブル
 
-* Database initialization
+| Column      | Type     | Options                       |
+|-------------|--------- |-------------------------------|
+|user         |references|null: false, foreign_key: true |
+|product_name |string    |null: false                    |
+|explanation  |text      |null: false                    |
+|category     |string    |null: false                    |
+|status       |string    |null: false                    |
+|fee          |integer   |null: false                    |
+|place        |string    |null: false                    |
+|days         |integer   |null: false                    |
+|price        |integer   |null: false                    |
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+belongs_to :user
+has_one :purchase
 
-* Deployment instructions
 
-* ...
+## purchasesテーブル
+
+| column      | Type     | Option                         |
+|-------------|----------|--------------------------------|
+|user         |references|null: false, foreign_key: true  |
+|date         |integer   |null: false                     |
+|product      |references|null: false, foreign_key: true  |
+
+
+### Association
+belongs_to :user
+belongs_to :product
+has_one :address
+
+
+## addressesテーブル
+
+| Column      | Type      | Option                        |
+|-------------|-----------|-------------------------------|
+|postal_code  |integer    |null: false                    |
+|prefectures  |string     |null: false                    |
+|municipality |string     |null: false                    |
+|address      |integer    |null: false                    |
+|phone_number |integer    |null: false                    |
+|purchase     |references |null: false, foreign_key: true |
+
+### Association 
+belongs_to :purchase

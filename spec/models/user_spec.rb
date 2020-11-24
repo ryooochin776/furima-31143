@@ -41,6 +41,12 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password is invalid")
     end
 
+    it "password_confirmationが空だと登録できない" do
+      @user.password_confirmation = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+
     it "passwordが6文字より少なければ登録できないこと" do
       @user.password = "00000"
       @user.valid?

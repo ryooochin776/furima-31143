@@ -7,13 +7,14 @@ class User < ApplicationRecord
   has_many :products
   has_many :perchases
   
-  validates :nickname, presence: true
+  with_options presence: true do
+    validates :nickname
+    validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/.freeze }
+    validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/.freeze } 
+    validates :last_name_kana, format: { with: /\A[ァ-ヶー－]+\z/.freeze }
+    validates :first_name_kana, format: { with: /\A[ァ-ヶー－]+\z/.freeze }
+    validates :birthday
+  end
   validates :email, uniqueness: true
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i }, confirmation: true
-  validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/.freeze }
-  validates :first_name, presence:true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/.freeze } 
-  validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/.freeze }
-  validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/.freeze }
-  validates :birthday, presence: true
-
 end

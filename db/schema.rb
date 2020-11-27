@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_11_24_075907) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
+ActiveRecord::Schema.define(version: 2020_11_22_062325) do
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nickname", null: false
     t.string "email", default: "", null: false

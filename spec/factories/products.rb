@@ -2,11 +2,11 @@ FactoryBot.define do
   factory :product do
     name { 'ボール' }
     explanation { 'サッカーボール' }
-    category_id { 1 }
-    status_id { 1 }
-    fee_id { 1 }
-    place_id { 1 }
-    day_id { 1 }
+    category_id { 2 }
+    status_id { 2 }
+    fee_id { 2 }
+    place_id { 2 }
+    day_id { 2 }
     price { 300 }
     association :user
 

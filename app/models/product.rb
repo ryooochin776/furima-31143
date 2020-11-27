@@ -20,4 +20,12 @@ class Product < ApplicationRecord
     validates :day_id
     validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }, format: { with: /\A-?[0-9]+(\.[0-9]+)?\z/ }
   end
+
+  with_options numericality: { other_than:1 } do
+    validates :category_id
+    validates :status_id
+    validates :fee_id
+    validates :place_id
+    validates :day_id
+  end
 end

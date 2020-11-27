@@ -17,6 +17,11 @@ RSpec.describe Product, type: :model do
         @product.valid?
         expect(@product.errors.full_messages).to include("Image can't be blank")
       end
+      it '商品名が空だと出品できないこと' do
+        @product.name = ""
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Name can't be blank")
+      end
       it '商品説明が空だと出品できないこと' do
         @product.explanation = ''
         @product.valid?
@@ -53,9 +58,14 @@ RSpec.describe Product, type: :model do
         expect(@product.errors.full_messages).to include("Price can't be blank")
       end
       it '価格の範囲が￥300〜￥9,999,999の間でない場合出品できないこと' do
-        @product.price = '299'
+        @product.price = 299
         @product.valid?
         expect(@product.errors.full_messages).to include('Price must be greater than or equal to 300')
+      end
+      it '価格が¥10,000,000の場合出品できないこと' do
+        @product.price = 10,000,000
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Price is invalid")
       end
       it '価格が半角数字でない場合出品できないこと' do
         @product.price = '６６６'

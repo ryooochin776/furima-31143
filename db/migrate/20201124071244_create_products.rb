@@ -8,7 +8,7 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.integer :status_id, null:false
       t.integer :fee_id, null:false
       t.integer :place_id, null:false
-      t.integer :days_id, null:false
+      t.integer :day_id, null:false
       t.integer :price, null:false
       t.timestamps
     end

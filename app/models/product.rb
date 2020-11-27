@@ -12,14 +12,12 @@ class Product < ApplicationRecord
   with_options presence: true do
     validates :image
     validates :name
-    validates :explanatin
+    validates :explanation
     validates :category_id
     validates :status_id
     validates :fee_id
     validates :place_id
     validates :day_id
-    validates :price, :numericality => { :greater_than_or_equal_to => ￥300, :less_than_or_equal_to => ¥9,999,999 }, format: {with: /\A[-]?[0-9]+(\.[0-9]+)?\z/}
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }, format: { with: /\A-?[0-9]+(\.[0-9]+)?\z/ }
   end
-
-
 end

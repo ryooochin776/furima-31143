@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: :index
+  before_action :move_to_index, only: :index
 
   def index
     @purchase_address = PurchaseAddress.new
@@ -32,4 +33,14 @@ class PurchasesController < ApplicationController
       currency: 'jpy'
     )
   end
+
+  def move_to_index
+    @product = Product.find(params[:product_id])
+    if current_user == @product.user
+      redirect_to root_path
+    end
+  end
+
+
+
 end

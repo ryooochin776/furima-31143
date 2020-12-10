@@ -9,8 +9,8 @@ class PurchaseAddress
     validates :address
     validates :phone_number, format: { with: /\A\d{10}$|^\d{11}\z/ }
     validates :token
-    #validates :user_id
-    #validates :product_id, numericality: { other_than: 0 }
+    validates :user_id
+    validates :product_id, numericality: { other_than: 0 }
   end
 
   def save

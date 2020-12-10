@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe PurchaseAddress, type: :model do
   describe '購入情報の保存' do
     before do
-      @purchase_address = FactoryBot.build(:purchase_address)
+      user1 = FactoryBot.create(:user)
+      user2 = FactoryBot.create(:user)
+      product = FactoryBot.build(:product, user_id: user1.id)
+      product.save
+      @purchase_address = FactoryBot.build(:purchase_address, user_id: user2.id, product_id: product.id)
+      sleep(1)
     end
     it '全ての値が正しく入力されていれば保存できること' do
       expect(@purchase_address).to be_valid
@@ -60,8 +65,16 @@ RSpec.describe PurchaseAddress, type: :model do
     it '都道府県のidが0では保存できないこと' do
       @purchase_address.prefecture_id = 0
       @purchase_address.valid?
-      #expect(@purchase_address.errors.full_messages).to include("Prefecture must be other than 0")
     end
-
+    it 'user_idが空では保存できないこと' do
+      @purchase_address.user_id = nil
+      @purchase_address.valid?
+      expect(@purchase_address.errors.full_messages).to include("User can't be blank")
+    end
+    it 'product_idが空では保存できないこと' do
+      @purchase_address.product_id = nil
+      @purchase_address.valid?
+      expect(@purchase_address.errors.full_messages).to include("Product is not a number")
+    end
   end
 end

@@ -57,5 +57,11 @@ RSpec.describe PurchaseAddress, type: :model do
       @purchase_address.valid?
       expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
     end
+    it '都道府県のidが0では保存できないこと' do
+      @purchase_address.prefecture_id = 0
+      @purchase_address.valid?
+      #expect(@purchase_address.errors.full_messages).to include("Prefecture must be other than 0")
+    end
+
   end
 end

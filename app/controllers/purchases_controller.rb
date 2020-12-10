@@ -1,14 +1,13 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: :index
   before_action :move_to_index, only: :index
+  before_action :set_product, only: [:index, :create]
 
   def index
     @purchase_address = PurchaseAddress.new
-    @product = Product.find(params[:product_id])
   end
 
   def create
-    @product = Product.find(params[:product_id])
     @purchase_address = PurchaseAddress.new(address_params)
     if @purchase_address.valid?
       pay_item
@@ -40,6 +39,19 @@ class PurchasesController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def set_product
+    @product = Product.find(params[:product_id])
+  end
+
+  def move_to_root_path
+    @product = Product.find(params[:product_id])
+    if @product.purchase != nil
+      redirect_to root_path
+    end
+  end
+
+
 
 
 

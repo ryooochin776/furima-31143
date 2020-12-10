@@ -45,7 +45,6 @@ class PurchasesController < ApplicationController
   end
 
   def move_to_root_path
-    @product = Product.find(params[:product_id])
     if @product.purchase != nil
       redirect_to root_path
     end

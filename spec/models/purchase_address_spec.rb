@@ -10,9 +10,17 @@ RSpec.describe PurchaseAddress, type: :model do
       @purchase_address = FactoryBot.build(:purchase_address, user_id: user2.id, product_id: product.id)
       sleep(1)
     end
+   context '保存がうまくいくとき' do
     it '全ての値が正しく入力されていれば保存できること' do
       expect(@purchase_address).to be_valid
     end
+    it '建物名は空でも保存できること' do
+      @purchase_address.building = nil
+      expect(@purchase_address).to be_valid
+    end
+   end
+
+   context '保存がうまくいかないとき' do
     it '郵便番号が空では保存できないこと' do
       @purchase_address.postal_code = nil
       @purchase_address.valid?
@@ -53,10 +61,6 @@ RSpec.describe PurchaseAddress, type: :model do
       @purchase_address.valid?
       expect(@purchase_address.errors.full_messages).to include('Phone number is invalid')
     end
-    it '建物名は空でも保存できること' do
-      @purchase_address.building = nil
-      expect(@purchase_address).to be_valid
-    end
     it 'tokenが空では保存できないこと' do
       @purchase_address.token = nil
       @purchase_address.valid?
@@ -74,7 +78,8 @@ RSpec.describe PurchaseAddress, type: :model do
     it 'product_idが空では保存できないこと' do
       @purchase_address.product_id = nil
       @purchase_address.valid?
-      expect(@purchase_address.errors.full_messages).to include("Product is not a number")
+      expect(@purchase_address.errors.full_messages).to include("Product can't be blank")
     end
+   end
   end
 end
